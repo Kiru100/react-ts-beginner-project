@@ -1,9 +1,9 @@
-import { Flex, Heading, List, ListIcon, ListItem, VStack, Link, Image, Text } from "@chakra-ui/react";
+import { Flex, Heading, List, ListItem, VStack, Link, Image, Text } from "@chakra-ui/react";
 
 export default function SideBar() {
     return (
         <VStack alignItems="start">
-            <Heading size="lg" as="h2" textAlign="left">Genres</Heading>
+            <Heading size="lg" as="h2" h="56px" textAlign="left" display="flex" alignItems="center">Genres</Heading>
             <List spacing={3}>
                 <ListItem>
                     <Link href="" display="flex">
