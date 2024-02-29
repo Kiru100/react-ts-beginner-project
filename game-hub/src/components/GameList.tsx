@@ -1,6 +1,38 @@
 import { AspectRatio, Box, Card, CardBody, Image, SimpleGrid, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import {results} from "../assets/JSON/sample_games.json";
+import GameCard from "./GameCard";
 
-export default function GameList() {
+interface Game {
+    id: number;
+    name: string;
+}
+
+interface FetchGamesResponse{
+    count: number;
+    results: Game[];
+}
+
+export default function GameList() {    
+    const [games, setGames] = useState<Game[]>([]);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        // apiClient
+        //     .get<FetchGamesResponse>("/games")
+        //     .then((res) => {
+        //         setGames(res.data.results);
+        //         console.log(res.data.results);
+        //     })
+        //     .catch((err) =>{
+        //         console.log(err.message)
+        //         setError(err.message);
+        //     });
+
+        console.log("sample_games_data", results)
+    }, []);
+
+
     return (
         <>
             <SimpleGrid
@@ -8,7 +40,7 @@ export default function GameList() {
                 padding="2"
                 spacing={10}
             >   
-                <Card  borderRadius="4%" overflow="hidden">
+                {/* <Card borderRadius="4%" overflow="hidden">
                     <CardBody p="0">
                         <AspectRatio  ratio={16/9}>
                             <Image 
@@ -20,10 +52,19 @@ export default function GameList() {
                         </AspectRatio>
                         <Box p="16px">
                             <Text fontSize="24px" fontWeight="700" lineHeight="28px">Vampire: The Masquerade - Bloodlines 2</Text>
-                        </Box>
-        
+                        </Box>       
                     </CardBody>
-                </Card>
+                </Card> */}
+                {results.map((game, index) =>(
+                        <GameCard 
+                            key={`${game.id}_${index}`}
+                            id={game.id} 
+                            name={game.name} 
+                            background_image={game.background_image}
+                        />
+                    ))
+                }
+                {/* <GameCard  /> */}
             </SimpleGrid>
         </>
     )
