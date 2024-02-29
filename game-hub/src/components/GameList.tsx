@@ -2,6 +2,7 @@ import { AspectRatio, Box, Card, CardBody, Image, SimpleGrid, Text } from "@chak
 import { useEffect, useState } from "react";
 import {results} from "../assets/JSON/sample_games.json";
 import GameCard from "./GameCard";
+import apiClient from "../services/api-client";
 
 interface Game {
     id: number;
@@ -18,16 +19,16 @@ export default function GameList() {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        // apiClient
-        //     .get<FetchGamesResponse>("/games")
-        //     .then((res) => {
-        //         setGames(res.data.results);
-        //         console.log(res.data.results);
-        //     })
-        //     .catch((err) =>{
-        //         console.log(err.message)
-        //         setError(err.message);
-        //     });
+        apiClient
+            .get<FetchGamesResponse>("/games")
+            .then((res) => {
+                setGames(res.data.results);
+                console.log(res.data.results);
+            })
+            .catch((err) =>{
+                console.log(err.message)
+                setError(err.message);
+            });
 
         console.log("sample_games_data", results)
     }, []);
