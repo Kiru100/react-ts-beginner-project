@@ -11,6 +11,7 @@ function App() {
             gridTemplateRows={'50px 1fr'}
             gridTemplateColumns={'200px 1fr'}
             gridRowGap="8"
+            m="40px"
         >  
             <GridItem pt="2" area={"header"} >
                 <NavBar/>
