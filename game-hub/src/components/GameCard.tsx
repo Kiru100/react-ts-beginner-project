@@ -1,6 +1,5 @@
 import { AspectRatio, Box, Card, CardBody, Flex, Image, Text } from "@chakra-ui/react"
 import { FaXbox } from "react-icons/fa";
-
 interface GameCardProps{
     id: number;
     name: string;
@@ -8,8 +7,6 @@ interface GameCardProps{
 }
 
 export default function GameCard({id, background_image, name}: GameCardProps) {
-
-
 
 
     return (
