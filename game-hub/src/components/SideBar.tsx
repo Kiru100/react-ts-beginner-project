@@ -37,8 +37,6 @@ export default function SideBar() {
         console.log("sample_genre_data", results)
     }, []);
 
-
-
     return (
         <VStack alignItems="start">
             <Heading size="lg" as="h2" h="56px" textAlign="left" display="flex" alignItems="center">Genres</Heading>
