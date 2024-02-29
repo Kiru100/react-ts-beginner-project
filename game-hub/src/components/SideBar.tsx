@@ -1,50 +1,58 @@
-import { Flex, Heading, List, ListItem, VStack, Link, Image, Text } from "@chakra-ui/react";
+import { 
+    Heading, 
+    List,  
+    VStack, 
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import apiClient from "../services/api-client";
+import GenreItem from "./GenreItem";
+import {results} from "../assets/JSON/sample_genre.json";
+interface Genre {
+    id: number;
+    name: string;
+    image_background: string;
+}
+
+interface FetchGenreResponse {
+count: number;
+results: Genre[];
+}
 
 export default function SideBar() {
+    const [genres, setGenres] = useState<Genre[]>([]);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        // apiClient
+        //     .get<FetchGenreResponse>("/genres")
+        //     .then((res) => {
+        //         setGenres(res.data.results);
+        //         console.log(res.data.results);
+        //     })
+        //     .catch((err) =>{
+        //         console.log(err.message)
+        //         setError(err.message);
+        //     });
+
+        console.log("sample_genre_data", results)
+    }, []);
+
+
+
     return (
         <VStack alignItems="start">
             <Heading size="lg" as="h2" h="56px" textAlign="left" display="flex" alignItems="center">Genres</Heading>
             <List spacing={3}>
-                <ListItem>
-                    <Link href="" display="flex">
-                        <Image 
-                            src="https://cdn.discordapp.com/attachments/907169630538326076/1212659189327986738/genre_dummy_image.png?ex=65f2a3e0&is=65e02ee0&hm=1d33446753e27437896da6acd04de6c6a9924dbb417472d1d2c47d10d0bdbeeb&"
-                            boxSize="32px"
-                            alt="Application Logo">
-                        </Image>
-                        <Text ml="2">Action</Text>
-                    </Link>
-                </ListItem>
-                <ListItem>
-                    <Link href="" display="flex">
-                        <Image 
-                            src="https://cdn.discordapp.com/attachments/907169630538326076/1212659189327986738/genre_dummy_image.png?ex=65f2a3e0&is=65e02ee0&hm=1d33446753e27437896da6acd04de6c6a9924dbb417472d1d2c47d10d0bdbeeb&"
-                            boxSize="32px"
-                            alt="Application Logo">
-                        </Image>
-                        <Text ml="2">Action</Text>
-                    </Link>
-                </ListItem>
-                <ListItem>
-                <Link href="" display="flex">
-                        <Image 
-                            src="https://cdn.discordapp.com/attachments/907169630538326076/1212659189327986738/genre_dummy_image.png?ex=65f2a3e0&is=65e02ee0&hm=1d33446753e27437896da6acd04de6c6a9924dbb417472d1d2c47d10d0bdbeeb&"
-                            boxSize="32px"
-                            alt="Application Logo">
-                        </Image>
-                        <Text ml="2">Action</Text>
-                    </Link>
-                </ListItem>
-                <ListItem>
-                <Link href="" display="flex">
-                        <Image 
-                            src="https://cdn.discordapp.com/attachments/907169630538326076/1212659189327986738/genre_dummy_image.png?ex=65f2a3e0&is=65e02ee0&hm=1d33446753e27437896da6acd04de6c6a9924dbb417472d1d2c47d10d0bdbeeb&"
-                            boxSize="32px"
-                            alt="Application Logo">
-                        </Image>
-                        <Text ml="2">Action</Text>
-                    </Link>
-                </ListItem>
+                {
+                    results.map((genre, index)=>(
+                        <GenreItem  
+                            id={genre.id} 
+                            index={index} 
+                            image_background={genre.image_background} 
+                            name={genre.name}
+                        />
+                    ))
+                }
             </List>
         </VStack>
     )
