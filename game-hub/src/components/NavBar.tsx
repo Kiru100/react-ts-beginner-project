@@ -9,7 +9,7 @@ import {
     Switch, 
     useColorMode
 } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons"
+import { SearchIcon } from "@chakra-ui/icons";
 import Logo from "../assets/logo.webp";
 
 export default function NavBar() {
