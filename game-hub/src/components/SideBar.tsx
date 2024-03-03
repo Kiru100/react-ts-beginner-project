@@ -34,6 +34,7 @@ export default function SideBar() {
         //         setError(err.message);
         //     });
 
+        setGenres(results);
         console.log("sample_genre_data", results)
     }, []);
 
