@@ -4,9 +4,17 @@ interface GameCardProps{
     id: number;
     name: string;
     background_image: string;
+    parent_platforms: {
+        platform: {
+            id: number;
+            name: string;
+            slug: string;
+        };
+    }[];
 }
 
-export default function GameCard({id, background_image, name}: GameCardProps) {
+
+export default function GameCard({id, background_image, name, parent_platforms}: GameCardProps) {
 
 
     return (
