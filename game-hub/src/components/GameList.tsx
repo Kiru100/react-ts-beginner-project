@@ -7,11 +7,13 @@ import apiClient from "../services/api-client";
 interface Game {
     id: number;
     name: string;
-}
-
-interface FetchGamesResponse{
-    count: number;
-    results: Game[];
+    parent_platforms: {
+        platform: {
+            id: number;
+            name: string;
+            slug: string;
+        };
+    }[];
 }
 
 export default function GameList() {    
@@ -19,17 +21,18 @@ export default function GameList() {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        apiClient
-            .get<FetchGamesResponse>("/games")
-            .then((res) => {
-                setGames(res.data.results);
-                console.log(res.data.results);
-            })
-            .catch((err) =>{
-                console.log(err.message)
-                setError(err.message);
-            });
+        // apiClient
+        //     .get<FetchGamesResponse>("/games")
+        //     .then((res) => {
+        //         setGames(res.data.results);
+        //         console.log(res.data.results);
+        //     })
+        //     .catch((err) =>{
+        //         console.log(err.message)
+        //         setError(err.message);
+        //     });
 
+        setGames(results);
         console.log("sample_games_data", results)
     }, []);
 
@@ -62,6 +65,7 @@ export default function GameList() {
                             id={game.id} 
                             name={game.name} 
                             background_image={game.background_image}
+                            parent_platforms={game.parent_platforms}
                         />
                     ))
                 }
