@@ -10,12 +10,13 @@ import {results} from "../assets/JSON/sample_genre.json";
 interface Genre {
     id: number;
     name: string;
+    slug: string;
     image_background: string;
 }
 
 interface FetchGenreResponse {
-count: number;
-results: Genre[];
+    count: number;
+    results: Genre[];
 }
 
 export default function SideBar() {
@@ -40,7 +41,15 @@ export default function SideBar() {
 
     return (
         <VStack alignItems="start">
-            <Heading size="lg" as="h2" h="56px" textAlign="left" display="flex" alignItems="center">Genres</Heading>
+            <Heading 
+                size="lg" 
+                as="h2" h="56px" 
+                textAlign="left" 
+                display="flex" 
+                alignItems="center"
+            >
+                    Genres
+            </Heading>
             <List spacing={3}>
                 {
                     results.map((genre, index)=>(
@@ -48,6 +57,7 @@ export default function SideBar() {
                             id={genre.id} 
                             index={index} 
                             image_background={genre.image_background} 
+                            slug={genre.slug}
                             name={genre.name}
                         />
                     ))
