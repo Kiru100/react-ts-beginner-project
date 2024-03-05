@@ -13,35 +13,20 @@ import { SearchIcon } from "@chakra-ui/icons";
 import Logo from "../assets/logo.webp";
 import React, { useState } from "react";
 
-export default function NavBar() {
+
+interface NavBarProps{
+    handleSearch: (search_value: string)=>void;
+}
+
+export default function NavBar({handleSearch} : NavBarProps) {
     const { colorMode, toggleColorMode } = useColorMode();
     const [input_value, setInputValue] = useState<string>('');
 
-    // const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) =>{
-
-    //     if (event.key === 'Enter') {
-    //         console.log('do validate')
-    //     }
-
-    //     setTimeout(()=>{
-    //         console.log("hasdhasdh")
-    //     },200)
-    // }
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.target.value)
-
-        setTimeout(()=>{
-            console.log("event", event.target.value)
-        }, 1000);
-    };
-
     const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
-            
+            handleSearch(input_value);
         }
     };
- 
 
     return (
             <Flex alignItems="center" w="100%">
@@ -55,7 +40,7 @@ export default function NavBar() {
                     flexGrow="1" 
                     ml="4"
                 >
-                    <InputLeftElement pointerEvents="none" >
+                    <InputLeftElement onClick={()=>handleSearch(input_value)} cursor="pointer">
                         <SearchIcon />
                     </InputLeftElement>
                     <Input 
@@ -63,7 +48,7 @@ export default function NavBar() {
                         placeholder="Search Games" 
                         borderRadius="full"  
                         value={input_value}
-                        onChange={handleInputChange}
+                        onChange={(event)=>setInputValue(event.target.value)}
                         onKeyDown={handleInputKeyDown}
                     />
                 </InputGroup>
