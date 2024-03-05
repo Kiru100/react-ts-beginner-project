@@ -7,8 +7,8 @@ function App() {
     return (
         <Grid
             templateAreas={`"header header"
-                "nav main"
-                "nav footer"`}
+                            "nav main"
+                            "nav footer"`}
             gridTemplateRows={"50px 1fr"}
             gridTemplateColumns={"200px 1fr"}
             gridRowGap="8"
@@ -23,7 +23,6 @@ function App() {
             <GridItem pl="2" area={"main"}>
                 <Main></Main>
             </GridItem>
-
         </Grid>
     )
 }
