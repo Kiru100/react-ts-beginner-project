@@ -2,7 +2,6 @@ import { AspectRatio, Box, Card, CardBody, Flex, Image, Text } from "@chakra-ui/
 import { BsNintendoSwitch } from "react-icons/bs";
 import { FaAndroid, FaAppStoreIos, FaApple, FaLinux, FaPlaystation, FaWindows, FaXbox } from "react-icons/fa";
 import { GiSpiderWeb } from "react-icons/gi";
-import { SiNintendo } from "react-icons/si";
 interface GameCardProps{
     id: number;
     name: string;
@@ -18,28 +17,25 @@ interface GameCardProps{
     }[];
 }
 
-interface Platform{
-    id: number;
-    name: string;
-    slug: string;
-}
+type PlatformType = { [key: number]: JSX.Element };
 
+export default function GameCard({ background_image, name, parent_platforms, added, metacritic }: GameCardProps) {
 
-export default function GameCard({id, background_image, name, parent_platforms, added, metacritic}: GameCardProps) {
-
-
-    const platform_type : { [key: number]: JSX.Element } = {
-        1: <FaWindows />,
-        2: <FaPlaystation />,
-        3: <FaXbox />,
-        4: <FaAppStoreIos />,
-        5: <FaApple />,
-        6: <FaLinux />, 
-        7: <BsNintendoSwitch />,
-        8: <FaAndroid />,
-        14: <GiSpiderWeb />
-    }
-
+    const getPlatformIcon = (platformNumber: number, key: string | number): React.ReactElement | null => {
+        const platformType: PlatformType = {
+            1: <FaWindows key={key} />,
+            2: <FaPlaystation key={key} />,
+            3: <FaXbox key={key} />,
+            4: <FaAppStoreIos key={key} />,
+            5: <FaApple key={key} />,
+            6: <FaLinux key={key} />,
+            7: <BsNintendoSwitch key={key} />,
+            8: <FaAndroid key={key} />,
+            14: <GiSpiderWeb key={key} />
+        };
+    
+        return platformType[platformNumber] || null;
+    };
 
     const generateCriticColor = (metacritic_ratings: number) =>{
         let critic_color = {border_color: "", color: ""}
@@ -78,8 +74,8 @@ export default function GameCard({id, background_image, name, parent_platforms, 
                 <Box p="16px">
                     <Flex alignItems="center" justifyContent="space-between">
                         <Flex gap="4px" height="24px">
-                            {parent_platforms.map(({platform}) =>(
-                                platform_type[platform.id]
+                            {parent_platforms.map(({platform}, index) =>(
+                                getPlatformIcon(platform.id, `${platform.id}_${index}`)
                             ))}             
                         </Flex>
                         <Text 
