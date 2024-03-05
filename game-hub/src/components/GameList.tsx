@@ -7,6 +7,9 @@ import apiClient from "../services/api-client";
 interface Game {
     id: number;
     name: string;
+    added: number;
+    background_image: string;
+    metacritic: number;
     parent_platforms: {
         platform: {
             id: number;
@@ -16,23 +19,28 @@ interface Game {
     }[];
 }
 
+interface FetchGamesResponse{
+    count: number;
+    results: Game[];
+}
+
 export default function GameList() {    
     const [games, setGames] = useState<Game[]>([]);
     const [error, setError] = useState("");
 
     useEffect(() => {
-        // apiClient
-        //     .get<FetchGamesResponse>("/games")
-        //     .then((res) => {
-        //         setGames(res.data.results);
-        //         console.log(res.data.results);
-        //     })
-        //     .catch((err) =>{
-        //         console.log(err.message)
-        //         setError(err.message);
-        //     });
+        apiClient
+            .get<FetchGamesResponse>("/games")
+            .then((res) => {
+                setGames(res.data.results);
+                console.log(res.data.results);
+            })
+            .catch((err) =>{
+                console.log(err.message)
+                setError(err.message);
+            });
 
-        setGames(results);
+        // setGames(results);
         console.log("sample_games_data", results)
     }, []);
 
@@ -40,36 +48,23 @@ export default function GameList() {
     return (
         <>
             <SimpleGrid
-                columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
+                columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
                 padding="2"
-                spacing={10}
+                spacing={4}
+                gridAutoRows="true"
             >   
-                {/* <Card borderRadius="4%" overflow="hidden">
-                    <CardBody p="0">
-                        <AspectRatio  ratio={16/9}>
-                            <Image 
-                                src="https://media.rawg.io/media/crop/600/400/games/fb5/fb5e0fdb1f6bb0e8b5da5d08bb83a5fc.jpg" 
-                                boxSize="48px"
-                                w="100%"
-                                alt="Application Logo">
-                            </Image>
-                        </AspectRatio>
-                        <Box p="16px">
-                            <Text fontSize="24px" fontWeight="700" lineHeight="28px">Vampire: The Masquerade - Bloodlines 2</Text>
-                        </Box>       
-                    </CardBody>
-                </Card> */}
-                {results.map((game, index) =>(
+                {games.map((game, index) =>(
                         <GameCard 
                             key={`${game.id}_${index}`}
                             id={game.id} 
                             name={game.name} 
+                            added={game.added}
                             background_image={game.background_image}
                             parent_platforms={game.parent_platforms}
+                            metacritic={game.metacritic}
                         />
                     ))
                 }
-                {/* <GameCard  /> */}
             </SimpleGrid>
         </>
     )
