@@ -36,7 +36,6 @@ export default function SideBar() {
         //     });
 
         setGenres(results);
-        console.log("sample_genre_data", results)
     }, []);
 
     return (
