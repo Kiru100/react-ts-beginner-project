@@ -1,8 +1,8 @@
-import { AspectRatio, Box, Card, CardBody, Image, SimpleGrid, Text } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import {results} from "../assets/JSON/sample_games.json";
 import GameCard from "./GameCard";
 import apiClient from "../services/api-client";
+import { Routes, Route, useParams } from 'react-router-dom';
 
 interface Game {
     id: number;
@@ -24,7 +24,11 @@ interface FetchGamesResponse{
     results: Game[];
 }
 
-export default function GameList() {    
+interface GameListProps{
+    search_value: string;
+}
+
+export default function GameList({search_value} : GameListProps) {    
     const [games, setGames] = useState<Game[]>([]);
     const [error, setError] = useState("");
 
@@ -39,10 +43,22 @@ export default function GameList() {
                 console.log(err.message)
                 setError(err.message);
             });
-
-        // setGames(results);
-        console.log("sample_games_data", results)
     }, []);
+
+    let { userId } = useParams();
+
+    // useEffect(()=>{
+    //     apiClient
+    //     .get<FetchGamesResponse>(`/games?search=${search_value}`)
+    //     .then((res) => {
+    //         setGames(res.data.results);
+    //         console.log(res.data.results);
+    //     })
+    //     .catch((err) =>{
+    //         console.log(err.message)
+    //         setError(err.message);
+    //     });
+    // }, [search_value])
 
 
     return (
