@@ -100,12 +100,9 @@ function App() {
 
     return (
             <Grid
-                // templateAreas={`"header header"
-                //                 "nav main"
-                //                 "nav footer"`}
                 templateAreas={{
                     base: `"header header" "main main"`,
-                    lg:  `"header header" "nav main" "nav footer"`
+                    lg:  `"header header" "nav main"`
                 }}
                 gridTemplateRows={"50px 1fr"}
                 gridTemplateColumns={"200px 1fr"}
