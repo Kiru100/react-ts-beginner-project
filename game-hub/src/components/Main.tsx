@@ -3,8 +3,6 @@ import GameList from "./GameList"
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import apiClient from "../services/api-client";
 import { useEffect, useState } from "react";
-
-
 interface Game {
     id: number;
     name: string;
@@ -19,18 +17,15 @@ interface Game {
         };
     }[];
 }
-
 interface GameProps{
     games_data: Game[]
     genre_selected: string;
     handlePlatformFilter: (name: string) => void;
     handleOrderSelected: (name: string) => void;
 }
-
 interface FetchPlatformList{
     results: Platform[];
 }
-
 interface Platform{
     id: number;
     name: string;
@@ -73,47 +68,42 @@ export default function Main({games_data, genre_selected, handlePlatformFilter, 
                     {selected_plaform} {genre_selected} Games               
                 </Heading>
                 <Flex gap="8px" ml="8px">
-                <Menu >
-                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                        {(selected_plaform.length) ? selected_plaform : "Platforms"}
-                    </MenuButton>
-                    <MenuList>
-                        {
-                            platform_list.map((platform, index)=>(
-                                <MenuItem 
-                                    key={`platform_${platform.id}_${index}`} 
-                                    onClick={()=>{
-                                        handlePlatformFilter(platform.id.toString());
-                                        setSelectedPlatform(platform.name);
-                                    }}>{platform.name}</MenuItem>
-                            ))
-                        }
-                    </MenuList>
-                </Menu>
-
-                <Menu>
-                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                        Order by: {selected_order}
-                    </MenuButton>
-                    <MenuList>
-                        {
-                            order_by_menu.map((order_detail, index)=>(
-                                <MenuItem 
-                                    key={`platform_${order_detail.id}_${index}`} 
-                                    onClick={()=>{
-                                        setSelectedOrder(order_detail.name);
-                                        handleOrderSelected(order_detail.slug);
-                                    }}>{order_detail.name}</MenuItem>
-                            ))
-                        }
-                    </MenuList>
-                </Menu>
-
+                    <Menu >
+                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                            {(selected_plaform.length) ? selected_plaform : "Platforms"}
+                        </MenuButton>
+                        <MenuList>
+                            {
+                                platform_list.map((platform, index)=>(
+                                    <MenuItem 
+                                        key={`platform_${platform.id}_${index}`} 
+                                        onClick={()=>{
+                                            handlePlatformFilter(platform.id.toString());
+                                            setSelectedPlatform(platform.name);
+                                        }}>{platform.name}</MenuItem>
+                                ))
+                            }
+                        </MenuList>
+                    </Menu>
+                    <Menu>
+                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                            Order by: {selected_order}
+                        </MenuButton>
+                        <MenuList>
+                            {
+                                order_by_menu.map((order_detail, index)=>(
+                                    <MenuItem 
+                                        key={`platform_${order_detail.id}_${index}`} 
+                                        onClick={()=>{
+                                            setSelectedOrder(order_detail.name);
+                                            handleOrderSelected(order_detail.slug);
+                                        }}>{order_detail.name}</MenuItem>
+                                ))
+                            }
+                        </MenuList>
+                    </Menu>
                 </Flex>
-
-                <GameList games_data={games_data}></GameList>
-
-                
+                <GameList games_data={games_data}></GameList>               
             </Container>
     )
 }
