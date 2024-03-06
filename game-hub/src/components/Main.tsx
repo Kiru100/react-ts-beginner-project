@@ -70,7 +70,7 @@ export default function Main({games_data, genre_selected, handlePlatformFilter, 
     return (
             <Container centerContent={false} alignSelf="left" w="100%" maxW="none">
                 <Heading p="2" h="56px">
-                    {genre_selected} Games               
+                    {selected_plaform} {genre_selected} Games               
                 </Heading>
                 <Flex gap="8px" ml="8px">
                 <Menu >
