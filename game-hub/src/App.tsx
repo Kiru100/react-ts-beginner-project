@@ -38,6 +38,8 @@ function App() {
     const [error, setError] = useState("");
     const [search_value, setSearchValue] = useState("");
     const [genre_selected, setGenreSelected] = useState("");
+    const [platform_selected, setSelectedPlatform] = useState("");
+    const [order_selected, setOrderSelected] = useState("");
 
     const handleSearch = (search_value: string) =>{
         setSearchValue(search_value)
@@ -46,6 +48,14 @@ function App() {
     const handleGenreClick = (name: string) =>{
         setGenreSelected(name);
     }
+
+    const handlePlatformFilter = (name: string) =>{
+        setSelectedPlatform(name);
+    }
+
+    const handleOrderSelected = (name: string) => {
+        setOrderSelected(name);
+    }   
 
     useEffect(() => {
         apiClient
@@ -97,7 +107,12 @@ function App() {
                     <SideBar handleGenreClick={handleGenreClick}/>
                 </GridItem>
                 <GridItem pl="2" area={"main"}>
-                    <Main games_data={games} genre_selected={genre_selected}/>
+                    <Main 
+                        games_data={games} 
+                        genre_selected={genre_selected}
+                        handlePlatformFilter={handlePlatformFilter}
+                        handleOrderSelected={handleOrderSelected}
+                    />  
                 </GridItem>
             </Grid>
     )
