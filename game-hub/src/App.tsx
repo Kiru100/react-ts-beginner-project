@@ -70,14 +70,16 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if(search_value?.length || genre_selected?.length){
+        
             let search = (search_value?.length) ? `?search=${search_value}` : "";
             let genre = (genre_selected?.length) ? `?genres=${genre_selected.toLocaleLowerCase()}` : "";
+            let platform = (platform_selected?.length) ? `?parent_platforms=${platform_selected}` : "";
+            let order = (order_selected?.length) ? `&ordering=${order_selected}` : "";
 
-            console.log("`/games${search}${genre}`", `/games${search}${genre}`)
+            console.log("`/games${search}${genre}`", `/games${search}${genre}${platform}${order}`)
 
             apiClient
-                .get<FetchGamesResponse>(`/games${search}${genre}`)
+                .get<FetchGamesResponse>(`/games${search}${genre}${platform}${order}`)
                 .then((res) => {
                     setGames(res.data.results);
                     console.log("res.data.results",res.data.results)
@@ -86,9 +88,9 @@ function App() {
                     console.log(err.message)
                     setError(err.message);
                 });
-        }
         
-    }, [search_value, genre_selected]);
+        
+    }, [search_value, genre_selected, platform_selected, order_selected]);
 
     return (
             <Grid

@@ -59,7 +59,6 @@ export default function Main({games_data, genre_selected, handlePlatformFilter, 
             .get<FetchPlatformList>("/platforms/lists/parents")
             .then((res) => {
                 setPlatformList(res.data.results);
-                console.log("platform", res.data.results);
             })
             .catch((err) =>{
                 console.log(err.message)
@@ -84,7 +83,7 @@ export default function Main({games_data, genre_selected, handlePlatformFilter, 
                                 <MenuItem 
                                     key={`platform_${platform.id}_${index}`} 
                                     onClick={()=>{
-                                        handlePlatformFilter(platform.name);
+                                        handlePlatformFilter(platform.id.toString());
                                         setSelectedPlatform(platform.name);
                                     }}>{platform.name}</MenuItem>
                             ))
@@ -103,7 +102,7 @@ export default function Main({games_data, genre_selected, handlePlatformFilter, 
                                     key={`platform_${order_detail.id}_${index}`} 
                                     onClick={()=>{
                                         setSelectedOrder(order_detail.name);
-                                        handleOrderSelected(order_detail.name);
+                                        handleOrderSelected(order_detail.slug);
                                     }}>{order_detail.name}</MenuItem>
                             ))
                         }
