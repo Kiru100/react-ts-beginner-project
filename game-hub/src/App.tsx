@@ -32,9 +32,7 @@ interface Genre {
 }
 
 function App() {
-    const [copy, setCopy] = useState<string>("");
     const [games, setGames] = useState<Game[]>([]);
-
     const [error, setError] = useState("");
     const [search_value, setSearchValue] = useState("");
     const [genre_selected, setGenreSelected] = useState("");
@@ -70,26 +68,34 @@ function App() {
     }, []);
 
     useEffect(() => {
-        
-            let search = (search_value?.length) ? `?search=${search_value}` : "";
-            let genre = (genre_selected?.length) ? `?genres=${genre_selected.toLocaleLowerCase()}` : "";
-            let platform = (platform_selected?.length) ? `?parent_platforms=${platform_selected}` : "";
-            let order = (order_selected?.length) ? `&ordering=${order_selected}` : "";
+            const query_params: string[] = [];
 
-            console.log("`/games${search}${genre}`", `/games${search}${genre}${platform}${order}`)
+            if (search_value) {
+                query_params.push(`search=${search_value}`);
+            }
+            if (genre_selected) {
+                query_params.push(`genres=${genre_selected.toLocaleLowerCase()}`);
+            }
+            if (platform_selected) {
+                query_params.push(`platforms=${platform_selected}`);
+            }
+            if (order_selected) {
+                query_params.push(`ordering=${(order_selected?.length && order_selected!=="name") ? `-${order_selected.toString()}` : order_selected.toString()}`);
+            }
+
+            const query_string = query_params.length > 0 ? `?${query_params.join('&')}` : '';
 
             apiClient
-                .get<FetchGamesResponse>(`/games${search}${genre}${platform}${order}`)
+                .get<FetchGamesResponse>(`/games${query_string}`)
                 .then((res) => {
                     setGames(res.data.results);
-                    console.log("res.data.results",res.data.results)
+                    console.log("res.data.results", res.data.results)
                 })
                 .catch((err) =>{
                     console.log(err.message)
                     setError(err.message);
                 });
-        
-        
+
     }, [search_value, genre_selected, platform_selected, order_selected]);
 
     return (
