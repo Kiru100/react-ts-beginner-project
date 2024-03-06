@@ -78,15 +78,19 @@ export default function GameCard({ background_image, name, parent_platforms, add
                                 getPlatformIcon(platform.id, `${platform.id}_${index}`)
                             ))}             
                         </Flex>
-                        <Text 
-                            border={`1px solid ${generateCriticColor(metacritic).border_color}`} 
-                            borderRadius="4px"
-                            padding="2px 0"
-                            minWidth={`32px`}
-                            textAlign={`center`}
-                            color={`#${generateCriticColor(metacritic).color}`}
-                            fontWeight={`700`}
-                        >{metacritic}</Text>
+                        {
+                            (Boolean(metacritic) && (
+                                <Text 
+                                    border={`1px solid ${generateCriticColor(metacritic).border_color}`} 
+                                    borderRadius="4px"
+                                    padding="2px 0"
+                                    minWidth={`32px`}
+                                    textAlign={`center`}
+                                    color={`#${generateCriticColor(metacritic).color}`}
+                                    fontWeight={`700`}
+                                >{metacritic}</Text>
+                            ))
+                        }
                     </Flex>
                     <Text 
                         fontSize="24px" 
