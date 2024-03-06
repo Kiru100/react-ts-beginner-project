@@ -74,7 +74,7 @@ export default function GameCard({ background_image, name, parent_platforms, add
                 <Box p="16px">
                     <Flex alignItems="center" justifyContent="space-between">
                         <Flex gap="4px" height="24px">
-                            {parent_platforms.map(({platform}, index) =>(
+                            {parent_platforms?.map(({platform}, index) =>(
                                 getPlatformIcon(platform.id, `${platform.id}_${index}`)
                             ))}             
                         </Flex>
