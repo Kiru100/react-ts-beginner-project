@@ -19,7 +19,11 @@ interface FetchGenreResponse {
     results: Genre[];
 }
 
-export default function SideBar() {
+interface SideBarProps{
+    handleGenreClick: (name: string )=> void;
+}
+
+export default function SideBar({handleGenreClick}: SideBarProps) {
     const [genres, setGenres] = useState<Genre[]>([]);
     const [error, setError] = useState("");
 
@@ -58,6 +62,8 @@ export default function SideBar() {
                             image_background={genre.image_background} 
                             slug={genre.slug}
                             name={genre.name}
+                            key={`genre_${genre.id}_${index}`}
+                            handleGenreClick={handleGenreClick}
                         />
                     ))
                 }
