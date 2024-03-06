@@ -10,14 +10,15 @@ interface GenreItemProps{
     name: string;
     slug: string;
     image_background: string;
-    index: number
+    index: number;
+    handleGenreClick: (name: string)=> void;
 }
 
-export default function GenreItem({id, index, image_background, name, slug}: GenreItemProps) {
+export default function GenreItem({id, index, image_background, name, slug, handleGenreClick}: GenreItemProps) {
     
     return (
-        <ListItem key={`${id}_${index}`}>
-            <Link href={`/games/${slug}`} display="flex">
+        <ListItem onClick={()=>handleGenreClick(name)}>
+            <Link display="flex">
                 <Image
                     className="genre_image"
                     src={image_background}
