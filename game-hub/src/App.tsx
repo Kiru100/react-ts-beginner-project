@@ -2,15 +2,83 @@ import { Button, Grid, GridItem, useColorMode } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
 import Main from "./components/Main";
-import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import apiClient from "./services/api-client";
+
+interface FetchGamesResponse{
+    count: number;
+    results: Game[];
+}
+interface Game {
+    id: number;
+    name: string;
+    added: number;
+    background_image: string;
+    metacritic: number;
+    parent_platforms: {
+        platform: {
+            id: number;
+            name: string;
+            slug: string;
+        };
+    }[];
+}
+
+interface Genre {
+    id: number;
+    name: string;
+    slug: string;
+    image_background: string;
+}
 
 function App() {
-    const [copy, setCopy] = useState<string>("")
+    const [copy, setCopy] = useState<string>("");
+    const [games, setGames] = useState<Game[]>([]);
+
+    const [error, setError] = useState("");
+    const [search_value, setSearchValue] = useState("");
+    const [genre_selected, setGenreSelected] = useState("");
 
     const handleSearch = (search_value: string) =>{
-        <Navigate to={`/games/search=${search_value}`} replace={true} />
+        setSearchValue(search_value)
+    }   
+
+    const handleGenreClick = (name: string) =>{
+        setGenreSelected(name);
     }
+
+    useEffect(() => {
+        apiClient
+            .get<FetchGamesResponse>("/games")
+            .then((res) => {
+                setGames(res.data.results);
+            })
+            .catch((err) =>{
+                console.log(err.message)
+                setError(err.message);
+            });
+    }, []);
+
+    useEffect(() => {
+        if(search_value?.length || genre_selected?.length){
+            let search = (search_value?.length) ? `?search=${search_value}` : "";
+            let genre = (genre_selected?.length) ? `?genres=${genre_selected.toLocaleLowerCase()}` : "";
+
+            console.log("`/games${search}${genre}`", `/games${search}${genre}`)
+
+            apiClient
+                .get<FetchGamesResponse>(`/games${search}${genre}`)
+                .then((res) => {
+                    setGames(res.data.results);
+                    console.log("res.data.results",res.data.results)
+                })
+                .catch((err) =>{
+                    console.log(err.message)
+                    setError(err.message);
+                });
+        }
+        
+    }, [search_value, genre_selected]);
 
     return (
             <Grid
@@ -26,10 +94,10 @@ function App() {
                     <NavBar handleSearch={handleSearch}/>
                 </GridItem>
                 <GridItem pl="2" area={"nav"}>
-                    <SideBar />
+                    <SideBar handleGenreClick={handleGenreClick}/>
                 </GridItem>
                 <GridItem pl="2" area={"main"}>
-                    <Main></Main>
+                    <Main games_data={games} genre_selected={genre_selected}/>
                 </GridItem>
             </Grid>
     )
