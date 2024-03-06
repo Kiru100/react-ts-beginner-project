@@ -1,8 +1,7 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import GameCard from "./GameCard";
 import apiClient from "../services/api-client";
-import { Routes, Route, useParams } from 'react-router-dom';
 
 interface Game {
     id: number;
@@ -25,27 +24,15 @@ interface FetchGamesResponse{
 }
 
 interface GameListProps{
-    search_value: string;
+    games_data: Game[]
 }
 
-export default function GameList({search_value} : GameListProps) {    
-    const [games, setGames] = useState<Game[]>([]);
-    const [error, setError] = useState("");
+export default function GameList({games_data}: GameListProps) {    
 
     useEffect(() => {
-        apiClient
-            .get<FetchGamesResponse>("/games")
-            .then((res) => {
-                setGames(res.data.results);
-                console.log(res.data.results);
-            })
-            .catch((err) =>{
-                console.log(err.message)
-                setError(err.message);
-            });
-    }, []);
 
-    let { userId } = useParams();
+    
+    }, []);
 
     // useEffect(()=>{
     //     apiClient
@@ -59,8 +46,7 @@ export default function GameList({search_value} : GameListProps) {
     //         setError(err.message);
     //     });
     // }, [search_value])
-
-
+    
     return (
         <>
             <SimpleGrid
@@ -69,7 +55,7 @@ export default function GameList({search_value} : GameListProps) {
                 spacing={4}
                 gridAutoRows="true"
             >   
-                {games.map((game, index) =>(
+                {games_data.map((game, index) =>(
                         <GameCard 
                             key={`${game.id}_${index}`}
                             id={game.id} 
@@ -81,6 +67,9 @@ export default function GameList({search_value} : GameListProps) {
                         />
                     ))
                 }
+                {(!games_data.length) && (
+                    <Box>No Game(s) Found.  </Box>
+                )}
             </SimpleGrid>
         </>
     )
