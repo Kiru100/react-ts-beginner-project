@@ -24,24 +24,6 @@ interface SideBarProps{
 }
 
 export default function SideBar({handleGenreClick}: SideBarProps) {
-    const [genres, setGenres] = useState<Genre[]>([]);
-    const [error, setError] = useState("");
-
-    useEffect(() => {
-        // apiClient
-        //     .get<FetchGenreResponse>("/genres")
-        //     .then((res) => {
-        //         setGenres(res.data.results);
-        //         console.log(res.data.results);
-        //     })
-        //     .catch((err) =>{
-        //         console.log(err.message)
-        //         setError(err.message);
-        //     });
-
-        setGenres(results);
-    }, []);
-
     return (
         <VStack alignItems="start">
             <Heading 

@@ -2,6 +2,7 @@ import { AspectRatio, Box, Card, CardBody, Flex, Image, Text } from "@chakra-ui/
 import { BsNintendoSwitch } from "react-icons/bs";
 import { FaAndroid, FaAppStoreIos, FaApple, FaLinux, FaPlaystation, FaWindows, FaXbox } from "react-icons/fa";
 import { GiSpiderWeb } from "react-icons/gi";
+import getCroppedImageUrl from "../services/image-url";
 interface GameCardProps{
     id: number;
     name: string;
@@ -64,7 +65,7 @@ export default function GameCard({ background_image, name, parent_platforms, add
             <CardBody p="0">
                 <AspectRatio ratio={16/9}>
                     <Image 
-                        src={background_image} 
+                        src={getCroppedImageUrl(background_image)} 
                         boxSize="48px"
                         w="100%"
                         alt={`${name} Logo`}
