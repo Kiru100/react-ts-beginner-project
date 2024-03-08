@@ -14,7 +14,7 @@ interface GenreItemProps{
     handleGenreClick: (name: string)=> void;
 }
 
-export default function GenreItem({id, index, image_background, name, slug, handleGenreClick}: GenreItemProps) {
+export default function GenreItem({image_background, name, handleGenreClick}: GenreItemProps) {
     
     return (
         <ListItem onClick={()=>handleGenreClick(name)}>

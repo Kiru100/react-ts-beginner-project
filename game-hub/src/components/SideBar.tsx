@@ -3,21 +3,8 @@ import {
     List,  
     VStack, 
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import apiClient from "../services/api-client";
 import GenreItem from "./GenreItem";
 import {results} from "../assets/JSON/sample_genre.json";
-interface Genre {
-    id: number;
-    name: string;
-    slug: string;
-    image_background: string;
-}
-
-interface FetchGenreResponse {
-    count: number;
-    results: Genre[];
-}
 
 interface SideBarProps{
     handleGenreClick: (name: string )=> void;

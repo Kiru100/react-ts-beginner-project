@@ -1,4 +1,4 @@
-import { Button, Grid, GridItem, Show, useColorMode } from "@chakra-ui/react";
+import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
 import Main from "./components/Main";
@@ -24,16 +24,8 @@ interface Game {
     }[];
 }
 
-interface Genre {
-    id: number;
-    name: string;
-    slug: string;
-    image_background: string;
-}
-
 function App() {
     const [games, setGames] = useState<Game[]>([]);
-    const [error, setError] = useState("");
     const [search_value, setSearchValue] = useState("");
     const [genre_selected, setGenreSelected] = useState("");
     const [platform_selected, setSelectedPlatform] = useState("");
@@ -63,7 +55,6 @@ function App() {
             })
             .catch((err) =>{
                 console.log(err.message)
-                setError(err.message);
             });
     }, []);
 
@@ -93,7 +84,6 @@ function App() {
                 })
                 .catch((err) =>{
                     console.log(err.message)
-                    setError(err.message);
                 });
 
     }, [search_value, genre_selected, platform_selected, order_selected]);

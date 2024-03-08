@@ -1,4 +1,4 @@
-import { Button, Container, Flex, Heading, Menu, MenuButton, MenuItem, MenuList, Select } from "@chakra-ui/react"
+import { Button, Container, Flex, Heading, Menu, MenuButton, MenuItem, MenuList  } from "@chakra-ui/react"
 import GameList from "./GameList"
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import apiClient from "../services/api-client";
@@ -36,7 +36,6 @@ export default function Main({games_data, genre_selected, handlePlatformFilter, 
     const [platform_list, setPlatformList] = useState<Platform[]>([]); 
     const [selected_plaform, setSelectedPlatform] = useState("");
     const [selected_order, setSelectedOrder] = useState("");
-    const [error, setError] = useState([]); 
 
     const order_by_menu = [
         {id: 1, name: "Name", slug: "name"},
@@ -57,7 +56,6 @@ export default function Main({games_data, genre_selected, handlePlatformFilter, 
             })
             .catch((err) =>{
                 console.log(err.message)
-                setError(err.message);
             });
     }, []);
 

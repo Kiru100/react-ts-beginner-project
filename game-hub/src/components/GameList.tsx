@@ -1,7 +1,6 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import GameCard from "./GameCard";
-import apiClient from "../services/api-client";
 
 interface Game {
     id: number;
@@ -17,12 +16,6 @@ interface Game {
         };
     }[];
 }
-
-interface FetchGamesResponse{
-    count: number;
-    results: Game[];
-}
-
 interface GameListProps{
     games_data: Game[]
 }

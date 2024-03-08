@@ -20,7 +20,7 @@ interface GameCardProps{
 
 type PlatformType = { [key: number]: JSX.Element };
 
-export default function GameCard({ background_image, name, parent_platforms, added, metacritic }: GameCardProps) {
+export default function GameCard({ background_image, name, parent_platforms, metacritic }: GameCardProps) {
 
     const getPlatformIcon = (platformNumber: number, key: string | number): React.ReactElement | null => {
         const platformType: PlatformType = {
