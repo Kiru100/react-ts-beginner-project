@@ -24,7 +24,7 @@ export default function GameCard({ background_image, name, parent_platforms, add
 
     const getPlatformIcon = (platformNumber: number, key: string | number): React.ReactElement | null => {
         const platformType: PlatformType = {
-            1: <FaWindows key={key} />,
+            1: <FaWindows key={key} color="gray.500"/>,
             2: <FaPlaystation key={key} />,
             3: <FaXbox key={key} />,
             4: <FaAppStoreIos key={key} />,
@@ -73,8 +73,8 @@ export default function GameCard({ background_image, name, parent_platforms, add
                     </Image>
                 </AspectRatio>
                 <Box p="16px">
-                    <Flex alignItems="center" justifyContent="space-between">
-                        <Flex gap="4px" height="24px">
+                    <Flex alignItems="center" justifyContent="space-between" >
+                        <Flex gap="4px" height="24px" alignItems="center" color="gray.200">
                             {parent_platforms?.map(({platform}, index) =>(
                                 getPlatformIcon(platform.id, `${platform.id}_${index}`)
                             ))}             
