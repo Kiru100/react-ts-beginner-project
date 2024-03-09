@@ -9,11 +9,10 @@ import {
     Switch, 
     useColorMode
 } from "@chakra-ui/react";
+
 import { SearchIcon } from "@chakra-ui/icons";
 import Logo from "../assets/logo.webp";
 import React, { useState } from "react";
-
-
 interface NavBarProps{
     handleSearch: (search_value: string)=>void;
 }
