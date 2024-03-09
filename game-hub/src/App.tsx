@@ -16,12 +16,14 @@ interface Game {
     background_image: string;
     metacritic: number;
     parent_platforms: {
-        platform: {
-            id: number;
-            name: string;
-            slug: string;
-        };
+        platform: Platform ;
     }[];
+}
+
+interface Platform{
+    id: number;
+    name: string;
+    slug: string;
 }
 
 function App() {
