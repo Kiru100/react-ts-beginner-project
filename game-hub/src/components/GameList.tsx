@@ -22,24 +22,6 @@ interface GameListProps{
 
 export default function GameList({games_data}: GameListProps) {    
 
-    useEffect(() => {
-
-    
-    }, []);
-
-    // useEffect(()=>{
-    //     apiClient
-    //     .get<FetchGamesResponse>(`/games?search=${search_value}`)
-    //     .then((res) => {
-    //         setGames(res.data.results);
-    //         console.log(res.data.results);
-    //     })
-    //     .catch((err) =>{
-    //         console.log(err.message)
-    //         setError(err.message);
-    //     });
-    // }, [search_value])
-    
     return (
         <>
             <SimpleGrid
